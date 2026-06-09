@@ -24,36 +24,6 @@ def skip_frames(action,env, skip_frame=6):
     #max_frame = n_state
     return max_frame, total_reward, done, info, last_x_pos
 
-class MarioDataset(Dataset):
-    def __init__(self, image_array ,transform=None):
-        self.images = image_array  
-        self.transform = transform  
-    
-    def __len__(self):
-        return len(self.images)
-    
-    def __getitem__(self, index):
-        img = self.images[index]
-        
-        if self.transform is not None:
-            aug = self.transform(image=img)
-            image = aug['image']
-        
-        return image
-    
-transforms_m = A.Compose(
-        [
-            A.Resize(height=224, width=224),
-            A.Normalize(
-                mean=[0.0, 0.0, 0.0],
-                std=[1.0, 1.0, 1.0],
-                max_pixel_value=255.0,
-            ),
-            ToTensorV2(),
-        ],
-    )
-
-
 def plot_goals(goal_dict, x_ax, y_ax, mode, exp_t, file_name, folder):
     # Create a color map for distinct colors
     cmap = plt.get_cmap('tab20')
