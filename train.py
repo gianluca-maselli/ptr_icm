@@ -122,7 +122,7 @@ if __name__ == '__main__':
     buffer_size = 100000
     buffer_icm = ReplayBuffer(state_size=(buffer_size, 4, 42, 42), action_size=1, buffer_size=buffer_size, device=device)
     
-    icm_trials = 1 #10  #ICM total exploratory trials
+    icm_trials = 10  #ICM total exploratory trials
     
     # -------------------------------#
 
@@ -168,8 +168,6 @@ if __name__ == '__main__':
     old_pos_max = 0
     global_counter = 0 #each 500 episodes launch test phase for comparison
     
-    sub_goals_ig  = [[50,100], [150, 200]]
-    ig = 0
     #main training loop
     while flag_get==False:
 
@@ -203,8 +201,7 @@ if __name__ == '__main__':
             icm_pos_max = max(sub_goals)
 
         icm_pos_max = max(sub_goals)
-        sub_goals = sub_goals_ig[ig]
-        ig +=1
+        
         # ----------- GOAL-CONDITIONED POLICY PHASE -----------#
 
         #reset weights of the last 2 linear when new position is found
